@@ -108,5 +108,49 @@ namespace BusinessRuleEngineTest
             Assert.Equal("Accoint is upgraded", product.ProductPaymentActions[0]);
 
         }
+        [Fact]
+        public void OrderVideoTest()
+        {
+
+            //Arrange
+
+            Video upgrade = new Video("Test video");
+            bool isPackingSlipGenerated = true;
+            bool isComboOfferApplied = false;
+            //Act
+
+            Video product = (Video)upgrade.FulfilProductOrder();
+
+            //Assert
+
+            Assert.Equal(isPackingSlipGenerated, product.IsPackingSlipGenerated_Shipping);
+            Assert.Equal(isComboOfferApplied, product.isComboOfferApplied);
+
+            Assert.Equal("Generate Packiing Slip for Shipping", product.ProductPaymentActions[0]);
+
+        }
+
+        [Fact]
+        public void OrderVideoLearningToSkiTest()
+        {
+
+            //Arrange
+            
+
+            Video upgrade = new Video("Learning to Ski");
+            bool isPackingSlipGenerated = true;
+            bool isComboOfferApplied = true;
+            //Act
+
+            Video product = (Video)upgrade.FulfilProductOrder();
+
+            //Assert
+
+            Assert.Equal(isPackingSlipGenerated, product.IsPackingSlipGenerated_Shipping);
+            Assert.Equal(isComboOfferApplied, product.isComboOfferApplied);
+
+            Assert.Equal("Generate Packiing Slip for Shipping", product.ProductPaymentActions[0]);
+
+        }
     }
 }
