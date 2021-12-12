@@ -1,4 +1,4 @@
-﻿using BusinessRuleEngine.Services;
+﻿using BusinessRuleEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,22 +7,26 @@ using System.Threading.Tasks;
 
 namespace BusinessRuleEngine
 {
-    public class PhysicalProduct : IOrderFulfilment, IGeneratePackingSlip, IGenerateAgentCommission
+    public class PhysicalProduct : Product, IGeneratePackingSlip, IGenerateAgentCommission
     {
-        public void FulfilOrder()
+
+        public override Product FulfilProductOrder()
         {
             GeneratePackingSlip();
             GenerateAgentCommision();
+            return this;
         }
 
         public void GenerateAgentCommision()
         {
-            Console.WriteLine("Generate Agent Commision");
+            IsAgentCommissionGenerated = true;
+            ProductPaymentActions.Add("Generate Agent Commision");
         }
 
         public void GeneratePackingSlip()
         {
-            Console.WriteLine("Generate Packiing Slip for Shipping");
+            IsPackingSlipGenerated_Shipping = true;
+            ProductPaymentActions.Add("Generate Packiing Slip for Shipping");
         }
     }
 }
