@@ -10,7 +10,7 @@ namespace BusinessRuleEngineTest
         [Fact]
         public void OrderPhysicalProduct_ShouldGnerateAgentCommisionAndPackingSlip()
         {
-           
+
             //Arrange
             PhysicalProduct physicalProduct = new PhysicalProduct();
             bool isAgentCommissionGenerated = true;
@@ -22,12 +22,12 @@ namespace BusinessRuleEngineTest
             var product = physicalProduct.FulfilProductOrder();
 
             //Assert
-            
-            Assert.Equal(isPackingSlipGenerated,product.IsPackingSlipGenerated_Shipping);
+
+            Assert.Equal(isPackingSlipGenerated, product.IsPackingSlipGenerated_Shipping);
             Assert.Equal(isAgentCommissionGenerated, product.IsAgentCommissionGenerated);
             Assert.Equal(isPackingSlipGenerated_RoyaltyDept, product.IsPackingSlipGenerated_RoyaltyDepartment);
             Assert.Equal("Generate Packiing Slip for Shipping", product.ProductPaymentActions[0]);
-            Assert.Equal("Generate Agent Commision",product.ProductPaymentActions[1]);
+            Assert.Equal("Generate Agent Commision", product.ProductPaymentActions[1]);
 
         }
 
@@ -36,7 +36,7 @@ namespace BusinessRuleEngineTest
         {
 
             //Arrange
-             Book book = new Book();
+            Book book = new Book();
             bool isAgentCommissionGenerated = true;
             bool isPackingSlipGenerated = true;
             bool isPackingSlipGenerated_RoyaltyDept = true;
@@ -67,8 +67,8 @@ namespace BusinessRuleEngineTest
             userAccount.UserName = "test";
             bool isMembershipActivated = true;
             bool isSentActivationMail = true;
-           
-            MemberShip memberShip=new MemberShip(emailService, userAccount);
+
+            MemberShip memberShip = new MemberShip(emailService, userAccount);
 
             //Act
 
@@ -80,6 +80,32 @@ namespace BusinessRuleEngineTest
             Assert.Equal(isSentActivationMail, userAccount.IsSentActivationMail);
 
             Assert.Equal("Accoint is activated", product.ProductPaymentActions[0]);
+
+        }
+        [Fact]
+        public void UpgradeMembershipTest()
+        {
+
+            //Arrange
+            IEmailService emailService = new EmailService();
+            UserAccount userAccount = new UserAccount();
+            userAccount.EmailId = "test@gmail.com";
+            userAccount.UserName = "test";
+            bool isMembershipUpgraded = true;
+            bool isSentAccountUpgradationMail = true;
+
+            Upgrade upgrade = new Upgrade(emailService, userAccount);
+
+            //Act
+
+            var product = upgrade.FulfilProductOrder();
+
+            //Assert
+
+            Assert.Equal(isMembershipUpgraded, userAccount.IsUserAccountUpgraded);
+            Assert.Equal(isSentAccountUpgradationMail, userAccount.IsSentAccountUpgradationMail);
+
+            Assert.Equal("Accoint is upgraded", product.ProductPaymentActions[0]);
 
         }
     }
