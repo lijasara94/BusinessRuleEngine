@@ -10,6 +10,12 @@ namespace BusinessRuleEngine
     public class PhysicalProduct : Product, IGeneratePackingSlip, IGenerateAgentCommission
     {
 
+        public PhysicalProduct()
+        {
+            Name = "Physical Product";
+            Description = "Physical Product";
+            ProductPaymentActions = new List<string>();
+        }
         public override Product FulfilProductOrder()
         {
             GeneratePackingSlip();
