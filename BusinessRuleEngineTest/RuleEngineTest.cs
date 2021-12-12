@@ -1,4 +1,6 @@
+using BusinessRuleEngine.Models;
 using BusinessRuleEngine.Products;
+using BusinessRuleEngine.Services;
 using Xunit;
 
 namespace BusinessRuleEngineTest
@@ -51,6 +53,33 @@ namespace BusinessRuleEngineTest
             Assert.Equal("Generate Packiing Slip for Shipping", product.ProductPaymentActions[0]);
             Assert.Equal("Generate Agent Commision", product.ProductPaymentActions[1]);
             Assert.Equal("Generate Packaging Slip for Royalty Department", product.ProductPaymentActions[2]);
+
+        }
+
+        [Fact]
+        public void ActivateMembershipTest()
+        {
+
+            //Arrange
+            IEmailService emailService = new EmailService();
+            UserAccount userAccount = new UserAccount();
+            userAccount.EmailId = "test@gmail.com";
+            userAccount.UserName = "test";
+            bool isMembershipActivated = true;
+            bool isSentActivationMail = true;
+           
+            MemberShip memberShip=new MemberShip(emailService, userAccount);
+
+            //Act
+
+            var product = memberShip.FulfilProductOrder();
+
+            //Assert
+
+            Assert.Equal(isMembershipActivated, userAccount.IsUserActivated);
+            Assert.Equal(isSentActivationMail, userAccount.IsSentActivationMail);
+
+            Assert.Equal("Accoint is activated", product.ProductPaymentActions[0]);
 
         }
     }
