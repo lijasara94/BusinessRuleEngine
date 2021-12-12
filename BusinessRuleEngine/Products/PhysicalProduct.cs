@@ -1,4 +1,6 @@
 ﻿
+using BusinessRuleEngine.Services;
+
 namespace BusinessRuleEngine.Products
 {
     public class PhysicalProduct : Product, IGeneratePackingSlip, IGenerateAgentCommission
