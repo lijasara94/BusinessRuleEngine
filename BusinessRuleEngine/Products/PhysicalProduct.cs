@@ -1,11 +1,5 @@
-﻿using BusinessRuleEngine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BusinessRuleEngine
+﻿
+namespace BusinessRuleEngine.Products
 {
     public class PhysicalProduct : Product, IGeneratePackingSlip, IGenerateAgentCommission
     {
